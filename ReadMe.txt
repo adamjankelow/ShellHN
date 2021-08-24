@@ -2,12 +2,11 @@ Project Name: Kovrr ShellHN
 
 Description: The ShellHN has two capabilities
 1: Display a list of the 40 most popular articles ordered by their rank
-2: Upon selection of a given technology, predict the likelihood of the technology to appear in the following month in HN
+2: Upon selection of a given technology, predict the likelihood of the technology to appear in HN next month
 
 How to install project:
 Step 1: Make sure Python is installed on your computer
 Step 2: Download the folder called "Kovrr" to a local repository
-
 
 Running the project:
 - In your terminal, navigate to the location where you have stored the directory called "Kovrr"

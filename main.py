@@ -15,22 +15,22 @@ def topArticles(x):
     your_keys = ['id', 'type', 'title', 'time', 'score']
     top_40_id = top_stories_id[0:x]
 
-    # iterate through the id's to return the details related to the ids
+    # iterate through the id's to return the info related to the ids
     for x in top_40_id:
         url = "https://hacker-news.firebaseio.com/v0/item/" + str(x) + ".json?print=pretty"
         response = requests.request("GET", url)
         response_dict = response.json()
         dict_subset = {your_key: response_dict[your_key] for your_key in your_keys}
         dict[x] = dict_subset
-
+    # convert the data to a pandas data frame
     data = pd.DataFrame.from_dict(dict, orient="index")
+    # Since api returns the top stories in order of their rank, rank column is based off number
     data['rank'] = np.arange(len(data)) + 1
     output = data[['title', 'rank']]
-    print(output)
+    print(output.to_string(index=False))
 
 
 def prediction():
-    # Opening JSON file
     technologies = ['Kubernetes', 'Linux', 'Windows', 'Solarwinds', 'Garmin', 'AWS',
                     'Docker', 'Github', 'Wordpress', 'Rundck']
     print(technologies)
@@ -44,31 +44,25 @@ def prediction():
         data = pd.DataFrame.from_dict(json1_data, orient="columns")
         data['title'] = data['title'].astype(str).str.lower()
         data['wordCount'] = data['title'].str.contains(word)
-        output = round(data['wordCount'].mean() * 100 , 2)
-        print('The likelihood the technology appears is ' + str(output)+ '%')
+        output = round(data['wordCount'].mean() * 100, 2)
+        print('The likelihood the technology appears is ' + str(output) + '%')
     else:
-        print('Entry is not in the list provided')
+        print('Command failed: Entry is not in the list provided')
 
 
 if __name__ == '__main__':
-    # parser = argparse.ArgumentParser(prog='Hacker News',
-    #                                  usage='Choose a technology and this will predict likelihood of appearing in HN',
-    #                                  description='Description: This tool has 2 capabilities'
-    #                                              '1:Provide a list of HN top stories '
-    #                                              '2: Predict if a technology appears in HN in the following month',
-    #                                  epilog='Copy @ Adam Jankelow',
-    #                                  formatter_class= argparse.RawDescriptionHelpFormatter,
-    #                                  add_help= True
-    #                                  )
-    # parser.add_argument('--top40', '-top40', type= str, help= 'Enter query to return the list of top 40 stories'
-    #                     , required=False )
-    arg = sys.argv
-    if arg[1] == '1':
-        topArticles(1)
-    elif arg[1] == '2':
+
+    print("Hi! The following code has 2 interactive capabilities:"
+          "\n 1. Display a list of the 40 most popular articles ordered by their rank."
+          "\n 2. Predict the likelihood of the technology to appear in HN next month."
+          "\n Enter the number 1 or 2 to use either of the capabailites described above."
+          )
+
+    # arg = sys.argv
+    arg = int(input())
+    if arg == 1:
+        topArticles(3)
+    elif arg == 2:
         prediction()
     else:
-        print('Argument provided is invalid: Please provide the intger 1 or 2 as an argument')
-
-
-    # topArticles(2)
+        print('Command failed: Please provide the command 1 or 2 as an argument')
