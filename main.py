@@ -2,9 +2,11 @@ import pandas as pd
 import requests
 import numpy as np
 import json
+import logging
 import sys
 import argparse
 
+logging.basicConfig(filename='HN.log', level=logging.INFO, format='%(levelname)s:%(asctime)s:%(message)s')
 
 def topArticles(x):
     # Get the id for the top 40 stories from the api below
@@ -46,23 +48,27 @@ def prediction():
         data['wordCount'] = data['title'].str.contains(word)
         output = round(data['wordCount'].mean() * 100, 2)
         print('The likelihood the technology appears is ' + str(output) + '%')
+        logging.info('Capability 2 of ShellHN was successful')
     else:
-        print('Command failed: Entry is not in the list provided')
-
+        print('Command failed: Please rerun and check spelling when entering the name of the technology')
+        logging.error('Input was not in the list provided in order to give a prediction')
 
 if __name__ == '__main__':
 
     print("Hi! The following code has 2 interactive capabilities:"
           "\n 1. Display a list of the 40 most popular articles ordered by their rank."
           "\n 2. Predict the likelihood of the technology to appear in HN next month."
-          "\n Enter the number 1 or 2 to use either of the capabailites described above."
+          "\n Enter the number 1 or 2 to use either of the capabilities described above."
           )
 
     # arg = sys.argv
     arg = int(input())
     if arg == 1:
-        topArticles(3)
+        print('Busy loading: this may take a few minutes to run:)')
+        topArticles(40)
+        logging.info('Capability 1 of ShellHN was ran successfully')
     elif arg == 2:
         prediction()
     else:
-        print('Command failed: Please provide the command 1 or 2 as an argument')
+        print('Command failed: Please rerun and provide 1 or 2 as an argument')
+        logging.error('Invalid entry: 1 or 2 was not provided as a command')
