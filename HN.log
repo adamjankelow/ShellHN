@@ -1,0 +1,8 @@
+ERROR:2021-08-26 15:57:20,985:Input was not in the list provided
+ERROR:2021-08-26 15:58:42,425:Input was not in the list provided in order to give a prediction
+INFO:2021-08-26 15:59:09,640:Capability 2 of ShellHN was successful
+ERROR:2021-08-26 15:59:24,392:Input was not in the list provided in order to give a prediction
+ERROR:2021-08-26 16:00:01,062:Invalid entry given for 1st command
+ERROR:2021-08-26 16:00:46,502:Invalid entry: 1 or 2 was not provided as a command
+INFO:2021-08-26 16:01:40,261:Capability 1 of ShellHN was successful
+INFO:2021-08-26 16:03:12,253:Capability 1 of ShellHN was ran successfully
